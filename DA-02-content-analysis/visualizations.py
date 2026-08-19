@@ -24,11 +24,11 @@ st.markdown(
 # -------------------------------------------------------------------
 @st.cache_data
 def cargar_datos():
-    df = pd.read_csv("posts_ampliado.csv")
+    df = pd.read_csv("DA-02-content-analysis/posts_ampliado.csv")
     df["fecha_publicacion"] = pd.to_datetime(df["fecha_publicacion"])
 
-    post_mes_categorias = pd.read_csv("posts_por_mes_y_categoria.csv")
-    engage_por_hora = pd.read_csv("engage_por_hora.csv")
+    post_mes_categorias = pd.read_csv("DA-02-content-analysis/posts_por_mes_y_categoria.csv")
+    engage_por_hora = pd.read_csv("DA-02-content-analysis/engage_por_hora.csv")
 
 
     return df, post_mes_categorias, engage_por_hora
