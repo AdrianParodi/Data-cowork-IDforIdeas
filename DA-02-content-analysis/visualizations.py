@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 import plotly.graph_objects as go
+import plotly.express as px
 
 # -------------------------------------------------------------------
 # 1. Configuración de la página
@@ -92,13 +93,22 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(
 # --- PESTAÑA 1: DISTRIBUCION MENSUAL DE POSTS POR CATEGORIA ---
 with tab1:
     st.subheader("Distribución de los posts por categoría")
+    # Crear el gráfico de barras apiladas
+    fig = px.bar(
+        df_posts_mes,
+        x="mes",
+        y=df_posts_mes.columns.drop("mes"), # O las columnas numéricas a apilar
+        color_discrete_sequence=['#6C5CE7', '#00CEC9', '#FF7675'],
+        height=400
+    )
 
-    # Requiere que df_posts_mes tenga los meses como índice y las categorías como columnas
-    df_chart = df_posts_mes.set_index("mes")
+    # Forzar las etiquetas del eje X a estar completamente horizontales (tickangle=0)
+    fig.update_layout(
+        xaxis=dict(tickangle=0, type='category'),
+        margin=dict(l=20, r=20, t=20, b=20)
+    )
 
-    paleta_moderna = ['#6C5CE7', '#00CEC9', '#FF7675']
-    st.bar_chart(df_chart, stack=True, height=400, color=paleta_moderna)
-
+    st.plotly_chart(fig, use_container_width=True)
 
 # --- PESTAÑA 2: ENGAGEMENT POR CATEGORIA ---
 with tab2:
